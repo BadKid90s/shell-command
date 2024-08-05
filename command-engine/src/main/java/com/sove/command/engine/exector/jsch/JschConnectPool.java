@@ -31,13 +31,11 @@ public class JschConnectPool {
         AtomicInteger sessionConnNum = sessionConnNumMap.computeIfAbsent(key, k -> new AtomicInteger(0));
 
         synchronized (sessionQueue) {
-            while (sessionQueue.isEmpty() && sessionConnNum.get() < maxConnNum) {
+
+            if (sessionQueue.isEmpty() && sessionConnNum.get() < maxConnNum) {
                 Session session = this.buildSession(username, host, port, password);
                 sessionQueue.addLast(session);
                 sessionConnNum.incrementAndGet();
-                if (sessionQueue.size() < maxConnNum) {
-                    break;
-                }
             }
 
             while (sessionQueue.isEmpty()) {

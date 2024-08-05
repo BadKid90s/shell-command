@@ -1,16 +1,12 @@
-package com.sove.cloud.server.config;
+package com.sove.command.server.config;
 
-import com.sove.engine.Executor;
-import com.sove.engine.exector.jsch.JschExecutor;
-import com.sove.engine.exector.jsch.JschProperties;
+import com.sove.command.engine.Executor;
+import com.sove.command.engine.exector.jsch.JschExecutor;
+import com.sove.command.engine.exector.jsch.JschProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.EnableAsync;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @Configuration
 @EnableConfigurationProperties(ShellConfig.ShellConfigProperties.class)

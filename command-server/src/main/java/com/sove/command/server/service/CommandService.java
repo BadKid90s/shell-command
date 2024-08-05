@@ -1,7 +1,7 @@
-package com.sove.cloud.server.service;
+package com.sove.command.server.service;
 
-import com.sove.cloud.server.domain.RemoteCommand;
-import com.sove.engine.CommandExecuteException;
+import com.sove.command.server.domain.RemoteCommand;
+import com.sove.command.engine.CommandExecuteException;
 
 public interface CommandService {
 

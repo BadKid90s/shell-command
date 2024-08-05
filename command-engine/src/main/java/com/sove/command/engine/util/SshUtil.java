@@ -1,4 +1,4 @@
-package com.sove.engine.util;
+package com.sove.command.engine.util;
 
 import cn.hutool.extra.ssh.JschUtil;
 import com.jcraft.jsch.JSchException;

@@ -1,4 +1,4 @@
-package com.sove.cloud.server.config;
+package com.sove.command.server.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

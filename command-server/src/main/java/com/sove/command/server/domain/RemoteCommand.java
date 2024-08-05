@@ -1,4 +1,4 @@
-package com.sove.cloud.server.domain;
+package com.sove.command.server.domain;
 
 public class RemoteCommand {
 

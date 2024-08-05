@@ -1,4 +1,4 @@
-package com.sove.engine.exector.jsch;
+package com.sove.command.engine.exector.jsch;
 
 public class JschProperties {
     private final String host;

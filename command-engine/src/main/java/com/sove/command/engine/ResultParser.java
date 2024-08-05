@@ -1,4 +1,4 @@
-package com.sove.engine;
+package com.sove.command.engine;
 
 @FunctionalInterface
 public interface ResultParser<T> {

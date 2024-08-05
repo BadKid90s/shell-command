@@ -1,19 +1,17 @@
-package com.sove.engine.exector.jsch;
+package com.sove.command.engine.exector.jsch;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.extra.ssh.JschUtil;
 import com.jcraft.jsch.Session;
-import com.sove.engine.Command;
-import com.sove.engine.CommandExecuteException;
-import com.sove.engine.Executor;
-import com.sove.engine.ResultParser;
+import com.sove.command.engine.Executor;
+import com.sove.command.engine.Command;
+import com.sove.command.engine.CommandExecuteException;
+import com.sove.command.engine.ResultParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
 import java.nio.charset.Charset;
-import java.util.concurrent.*;
 
 public class JschExecutor implements Executor {
 

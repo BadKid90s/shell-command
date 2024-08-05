@@ -1,6 +1,6 @@
-package com.sove.engine.builder;
+package com.sove.command.engine.builder;
 
-import com.sove.engine.ResultParser;
+import com.sove.command.engine.ResultParser;
 
 import java.util.function.Function;
 

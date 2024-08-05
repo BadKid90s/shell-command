@@ -1,4 +1,4 @@
-package com.sove.engine.exector.jsch;
+package com.sove.command.engine.exector.jsch;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.ssh.JschRuntimeException;

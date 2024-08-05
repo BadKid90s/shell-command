@@ -1,9 +1,9 @@
-package com.sove.cloud.server.controller;
+package com.sove.command.server.controller;
 
-import com.sove.cloud.server.domain.RemoteCommand;
-import com.sove.cloud.server.domain.ResultCommand;
-import com.sove.cloud.server.service.CommandService;
-import com.sove.engine.CommandExecuteException;
+import com.sove.command.server.domain.RemoteCommand;
+import com.sove.command.server.domain.ResultCommand;
+import com.sove.command.server.service.CommandService;
+import com.sove.command.engine.CommandExecuteException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

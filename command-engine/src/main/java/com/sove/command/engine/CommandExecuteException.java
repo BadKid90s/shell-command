@@ -1,4 +1,4 @@
-package com.sove.engine;
+package com.sove.command.engine;
 
 public class CommandExecuteException extends RuntimeException{
     public CommandExecuteException(String message) {

@@ -1,12 +1,12 @@
-package com.sove.cloud.server.service.impl;
+package com.sove.command.server.service.impl;
 
-import com.sove.cloud.server.domain.RemoteCommand;
-import com.sove.cloud.server.service.CommandService;
-import com.sove.engine.Command;
-import com.sove.engine.Executor;
-import com.sove.engine.ResultParser;
-import com.sove.engine.builder.CommandBuilder;
-import com.sove.engine.builder.ResultParserBuilder;
+import com.sove.command.server.domain.RemoteCommand;
+import com.sove.command.server.service.CommandService;
+import com.sove.command.engine.Command;
+import com.sove.command.engine.Executor;
+import com.sove.command.engine.ResultParser;
+import com.sove.command.engine.builder.CommandBuilder;
+import com.sove.command.engine.builder.ResultParserBuilder;
 import org.springframework.stereotype.Service;
 
 @Service

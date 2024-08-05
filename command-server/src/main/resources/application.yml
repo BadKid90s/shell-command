@@ -1,0 +1,12 @@
+server:
+  port: 8080
+
+ssh:
+  host: localhost
+  port: 22
+  username: root
+  password: 123456
+  timeout: 3
+
+knife4j:
+  enable: true

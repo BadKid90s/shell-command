@@ -34,9 +34,11 @@ public class JschExecutor implements Executor {
     @Override
     public <T> T exec(String host, Integer port, String user, String password, Command command, ResultParser<T> parser) throws CommandExecuteException {
         Session session = jschConnectPool.getSession(host, port, user, password);
-        T exec = this.exec(session, command, parser);
-        jschConnectPool.releaseSession(user, host, port, session);
-        return exec;
+        try {
+            return this.exec(session, command, parser);
+        } finally {
+            jschConnectPool.releaseSession(user, host, port, session);
+        }
     }
 
     private <T> T exec(Session session, Command command, ResultParser<T> parser) throws CommandExecuteException {

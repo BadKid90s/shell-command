@@ -17,10 +17,10 @@
 ```
 ### 配置连接
 ```java
-JschProperties properties = new JschProperties("127.0.0.1", 22, "root", "123456");
+SshProperties properties = new SshProperties("127.0.0.1", 22, "root", "123456");
 properties.setTimeout(10);
 properties.setMaxConnNum(32);
-JschExecutor executor = new JschExecutor(properties);
+Executor executor = new DefaultExecutor(properties);
 ```
 
 ### 执行命令

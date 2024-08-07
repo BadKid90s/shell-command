@@ -4,13 +4,13 @@ import com.sove.command.engine.Command;
 import com.sove.command.engine.CommandExecuteException;
 import com.sove.command.engine.Executor;
 import com.sove.command.engine.ResultParser;
-import com.sove.command.engine.exector.jsch.JschExecutor;
+import com.sove.command.engine.exector.sshj.SshjExecutor;
 
 public class DefaultExecutor implements Executor {
     private final Executor delegate;
 
     public DefaultExecutor(SshProperties properties) {
-        this.delegate = new JschExecutor(properties);
+        this.delegate = new SshjExecutor(properties);
     }
 
     @Override

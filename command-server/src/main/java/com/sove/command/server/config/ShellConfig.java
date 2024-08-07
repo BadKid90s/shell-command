@@ -2,7 +2,6 @@ package com.sove.command.server.config;
 
 import com.sove.command.engine.Executor;
 import com.sove.command.engine.exector.DefaultExecutor;
-import com.sove.command.engine.exector.jsch.JschExecutor;
 import com.sove.command.engine.exector.SshProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

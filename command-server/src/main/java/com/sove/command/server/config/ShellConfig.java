@@ -1,8 +1,9 @@
 package com.sove.command.server.config;
 
 import com.sove.command.engine.Executor;
+import com.sove.command.engine.exector.DefaultExecutor;
 import com.sove.command.engine.exector.jsch.JschExecutor;
-import com.sove.command.engine.exector.jsch.JschProperties;
+import com.sove.command.engine.exector.SshProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -15,9 +16,9 @@ public class ShellConfig {
 
     @Bean
     public Executor defaultExecutor(ShellConfigProperties properties) {
-        JschProperties jschProperties = new JschProperties(properties.host, properties.port, properties.username, properties.password);
-        jschProperties.setTimeout(properties.timeout);
-        return new JschExecutor(jschProperties);
+        SshProperties sshProperties = new SshProperties(properties.host, properties.port, properties.username, properties.password);
+        sshProperties.setTimeout(properties.timeout);
+        return new DefaultExecutor(sshProperties);
     }
 
     @ConfigurationProperties(prefix = "ssh")

@@ -7,6 +7,7 @@ import com.sove.command.engine.Executor;
 import com.sove.command.engine.Command;
 import com.sove.command.engine.CommandExecuteException;
 import com.sove.command.engine.ResultParser;
+import com.sove.command.engine.exector.SshProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,16 +19,16 @@ public class JschExecutor implements Executor {
     private final Logger log = LoggerFactory.getLogger(JschExecutor.class);
 
     private final JschConnectPool jschConnectPool;
-    private final JschProperties jschProperties;
+    private final SshProperties sshProperties;
 
-    public JschExecutor(JschProperties jschProperties) {
-        this.jschProperties = jschProperties;
-        this.jschConnectPool = new JschConnectPool(jschProperties.getMaxConnNum(), jschProperties.getTimeout());
+    public JschExecutor(SshProperties sshProperties) {
+        this.sshProperties = sshProperties;
+        this.jschConnectPool = new JschConnectPool(sshProperties.getMaxConnNum(), sshProperties.getTimeout());
     }
 
     @Override
     public <T> T exec(Command command, ResultParser<T> parser) throws CommandExecuteException {
-        return this.exec(jschProperties.getHost(), jschProperties.getPort(), jschProperties.getUsername(), jschProperties.getPassword(),
+        return this.exec(sshProperties.getHost(), sshProperties.getPort(), sshProperties.getUsername(), sshProperties.getPassword(),
                 command, parser);
     }
 

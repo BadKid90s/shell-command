@@ -1,6 +1,6 @@
-package com.sove.command.engine.exector.jsch;
+package com.sove.command.engine.exector;
 
-public class JschProperties {
+public class SshProperties {
     private final String host;
     private final Integer port;
     private final String username;
@@ -8,7 +8,7 @@ public class JschProperties {
     private Integer timeout = 60;
     private Integer maxConnNum = 32;
 
-    public JschProperties(String host, Integer port, String username, String password) {
+    public SshProperties(String host, Integer port, String username, String password) {
         this.host = host;
         this.port = port;
         this.username = username;

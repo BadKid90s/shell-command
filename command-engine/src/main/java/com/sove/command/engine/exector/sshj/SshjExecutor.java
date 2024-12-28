@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
 
 public class SshjExecutor implements Executor {
@@ -42,8 +41,8 @@ public class SshjExecutor implements Executor {
             String resultMsg, errorMsg;
             try (Session.Command cmd = session.exec(cmdStr)) {
                 cmd.join(properties.getTimeout(), TimeUnit.SECONDS);
-                resultMsg = IOUtils.readFully(cmd.getInputStream()).toString(Charset.defaultCharset());
-                errorMsg = IOUtils.readFully(cmd.getErrorStream()).toString(Charset.defaultCharset());
+                resultMsg = IOUtils.readFully(cmd.getInputStream()).toString("UTF-8");
+                errorMsg = IOUtils.readFully(cmd.getErrorStream()).toString("UTF-8");
 
                 if (!errorMsg.isEmpty()) {
                     throw new CommandExecuteException(String.format("execute command error, command: %s, message: %s", cmdStr, errorMsg));

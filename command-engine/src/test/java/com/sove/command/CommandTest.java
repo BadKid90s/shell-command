@@ -17,7 +17,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -62,8 +63,8 @@ public class CommandTest {
                         String command = "echo Hello from thread " + threadId;
                         Session.Command cmd = session.exec(command);
                         cmd.join(5, TimeUnit.SECONDS);
-                        String resultMsg = IOUtils.readFully(cmd.getInputStream()).toString(Charset.defaultCharset());
-                        String errorMsg = IOUtils.readFully(cmd.getErrorStream()).toString(Charset.defaultCharset());
+                        String resultMsg = IOUtils.readFully(cmd.getInputStream()).toString("UTF-8");
+                        String errorMsg = IOUtils.readFully(cmd.getErrorStream()).toString("UTF-8");
 
                         System.out.println("resultMsg: " + resultMsg);
                         System.out.println("errorMsg: " + errorMsg);
@@ -92,20 +93,25 @@ public class CommandTest {
 
     @Test
     public void sshjExecutorTest() {
-        SshProperties properties = new SshProperties("127.0.0.1", 22, "root", "123456");
+        SshProperties properties = new SshProperties("192.168.1.109", 22, "root", "123456");
         SshjExecutor sshExecutor = new SshjExecutor(properties);
-        ResultParser<String> parser = ResultParserBuilder.build();
+
+        Integer sshNum = this.getSshNum(sshExecutor);
 
         // 创建线程池
         ExecutorService executor = Executors.newFixedThreadPool(100);
 
+        long start = System.currentTimeMillis();
+
+        List<Integer> list = new CopyOnWriteArrayList<>();
         // 提交多个任务
         for (int i = 0; i < 10000; i++) {
             final int threadId = i;
             executor.submit(() -> {
-                String command = "echo Hello from thread " + threadId;
-                String msg = sshExecutor.exec(() -> command, parser);
-                System.out.printf("resultMsg: " + msg);
+                Integer msg = this.getSshNum(sshExecutor);
+                System.out.println("resultMsg: " + msg + "threadId :" + threadId);
+
+                list.add(msg);
             });
         }
 
@@ -120,7 +126,12 @@ public class CommandTest {
             executor.shutdownNow(); // 当前线程被中断，强制关闭
             Thread.currentThread().interrupt(); // 恢复中断状态
         }
-        System.out.println("success! ");
+        long end = System.currentTimeMillis() - start;
+
+        Integer maxSshNum = list.stream()
+                .max(Integer::compareTo)
+                .orElse(0); // 如果列表为空，返回 null;
+        System.out.printf("耗时：%sms, 开始ssh客户端数量：%s, 最大ssh客户端数量：%s%n", end, sshNum, maxSshNum);
     }
 
 
@@ -137,5 +148,13 @@ public class CommandTest {
             System.out.printf("resultMsg: " + msg);
 
         }
+    }
+
+
+    private Integer getSshNum(SshjExecutor sshExecutor) {
+        String command = "lsof -i :22 | wc -l";
+        return sshExecutor.exec(() -> command, (str ->
+                Integer.valueOf(str.replace("\n", ""))
+        ));
     }
 }

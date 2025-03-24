@@ -30,16 +30,3 @@ ResultParser<String> parser = ResultParserBuilder.build();
 String result = executor.exec(ipAddrCmd, parser);
 ```
 
-## SpringBoot方式启动
-```xml
-<dependency>
-            <groupId>com.sove.cloud</groupId>
-            <artifactId>command-server</artifactId>
-            <version>lastest-version</version>
-</dependency>
-```
-
-## API文档
-
-启动项目访问`htttp://ip:port/doc.html`
-

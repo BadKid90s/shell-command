@@ -63,6 +63,7 @@ public class SshjConnectPool {
             defaultConfig.setKeepAliveProvider(KeepAliveProvider.KEEP_ALIVE);
             SSHClient sshClient = new SSHClient(defaultConfig);
             sshClient.addHostKeyVerifier(new PromiscuousVerifier());
+            sshClient.getConnection().getKeepAlive().setKeepAliveInterval(5);
             sshClient.connect(host, port);
             sshClient.authPassword(username, password);
             sshClient.setTimeout(timeout);

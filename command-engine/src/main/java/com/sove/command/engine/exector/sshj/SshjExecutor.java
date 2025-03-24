@@ -5,13 +5,15 @@ import com.sove.command.engine.CommandExecuteException;
 import com.sove.command.engine.Executor;
 import com.sove.command.engine.ResultParser;
 import com.sove.command.engine.exector.SshProperties;
-import net.schmizz.sshj.common.IOUtils;
 import net.schmizz.sshj.connection.ConnectionException;
 import net.schmizz.sshj.connection.channel.direct.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 
 public class SshjExecutor implements Executor {
@@ -41,9 +43,24 @@ public class SshjExecutor implements Executor {
             log.debug("execute command: {}", cmdStr);
             String resultMsg, errorMsg;
             try (Session.Command cmd = session.exec(cmdStr)) {
-                cmd.join(properties.getTimeout(), TimeUnit.SECONDS);
-                resultMsg = IOUtils.readFully(cmd.getInputStream()).toString("UTF-8");
-                errorMsg = IOUtils.readFully(cmd.getErrorStream()).toString("UTF-8");
+                cmd.join(properties.getTimeout(), TimeUnit.MILLISECONDS);
+                StringBuilder resultBuilder = new StringBuilder();
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(cmd.getInputStream(), StandardCharsets.UTF_8))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        resultBuilder.append(line).append("\n");
+                    }
+                }
+                resultMsg = resultBuilder.toString();
+
+                StringBuilder errorBuilder = new StringBuilder();
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(cmd.getErrorStream(), StandardCharsets.UTF_8))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        errorBuilder.append(line).append("\n");
+                    }
+                }
+                errorMsg = errorBuilder.toString();
 
                 if (!errorMsg.isEmpty()) {
                     throw new CommandExecuteException(String.format("execute command error, command: %s, message: %s", cmdStr, errorMsg));

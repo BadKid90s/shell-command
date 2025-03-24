@@ -14,12 +14,13 @@ public class DefaultExecutor implements Executor {
     }
 
     @Override
-    public <T> T exec(Command command, ResultParser<T> parser) throws CommandExecuteException {
-        return delegate.exec(command, parser);
+    public <T> T execute(Command command, ResultParser<T> parser) throws CommandExecuteException {
+        return delegate.execute(command, parser);
     }
 
     @Override
-    public <T> T exec(String host, Integer port, String user, String password, Command command, ResultParser<T> parser) throws CommandExecuteException {
-        return delegate.exec(host, port, user, password, command, parser);
+    public <T> T execute(String sshHost, int sshPort, String sshUser, String sshPass, Command command, ResultParser<T> parser) {
+        return delegate.execute(sshHost, sshPort, sshUser, sshPass, command, parser);
     }
+
 }

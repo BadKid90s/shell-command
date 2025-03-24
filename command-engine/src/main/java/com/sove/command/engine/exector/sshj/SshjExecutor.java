@@ -27,13 +27,14 @@ public class SshjExecutor implements Executor {
     }
 
     @Override
-    public <T> T exec(Command command, ResultParser<T> parser) throws CommandExecuteException {
-        return this.exec(properties.getHost(), properties.getPort(), properties.getUsername(), properties.getPassword(),
+    public <T> T execute(Command command, ResultParser<T> parser) {
+        return this.execute(properties.getHost(), properties.getPort(), properties.getUsername(), properties.getPassword(),
                 command, parser);
     }
 
+
     @Override
-    public <T> T exec(String host, Integer port, String user, String password, Command command, ResultParser<T> parser) throws CommandExecuteException {
+    public <T> T execute(String host, int port, String user, String password, Command command, ResultParser<T> parser) {
         String cmdStr = command.build();
         try {
             Session session = connectPool.getSession(host, port, user, password);
